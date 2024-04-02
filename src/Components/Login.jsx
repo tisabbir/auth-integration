@@ -3,8 +3,21 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 
 const Login = () => {
-  const { signInUser } = useContext(AuthContext);
+  const { signInUser, signInWithGoogle } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const handleGoogleSignIn = () => {
+    signInWithGoogle()
+      .then((res) => {
+        console.log(res.user);
+
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+    console.log("googled");
+  };
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -64,6 +77,11 @@ const Login = () => {
               <button className="btn btn-primary">Login</button>
             </div>
           </form>
+          <div>
+            <button onClick={handleGoogleSignIn} className="btn btn-ghost ml-4">
+              Google
+            </button>
+          </div>
           <p className="text-center mb-4">
             New Here? Please{" "}
             <Link className="text-violet-700 " to={"/register"}>
