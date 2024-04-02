@@ -1,10 +1,10 @@
-import { useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
-import { onAuthStateChanged } from "firebase/auth";
 
 const Login = () => {
   const { signInUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -12,7 +12,12 @@ const Login = () => {
     const password = e.target.password.value;
 
     signInUser(email, password)
-      .then((res) => console.log(res.user))
+      .then((res) => {
+        console.log(res.user);
+
+        e.target.reset();
+        navigate("/");
+      })
       .catch((err) => console.error(err));
 
     console.log(email, password);

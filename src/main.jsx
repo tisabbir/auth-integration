@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Error from "./Components/Error";
 import Login from "./Components/Login";
+import Profile from "./Components/Profile";
 import Register from "./Components/Register";
 import "./index.css";
 import Home from "./Layouts/Home";
@@ -34,6 +35,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Orders />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/profile",
+        element: (
+          <PrivateRoute>
+            <Profile />
           </PrivateRoute>
         ),
       },
