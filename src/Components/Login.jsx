@@ -1,12 +1,23 @@
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../Provider/AuthProvider";
+import { onAuthStateChanged } from "firebase/auth";
 
 const Login = () => {
+  const { signInUser } = useContext(AuthContext);
+
   const handleLogin = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
+
+    signInUser(email, password)
+      .then((res) => console.log(res.user))
+      .catch((err) => console.error(err));
+
     console.log(email, password);
   };
+
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col gap-6 ">

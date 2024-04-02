@@ -6,6 +6,9 @@ import Login from "./Components/Login";
 import Register from "./Components/Register";
 import "./index.css";
 import Home from "./Layouts/Home";
+import Orders from "./Layouts/Orders";
+import AuthProvider from "./Provider/AuthProvider";
+import PrivateRoute from "./routes/PrivateRoute";
 import Root from "./routes/Root";
 
 const router = createBrowserRouter([
@@ -26,12 +29,22 @@ const router = createBrowserRouter([
         path: "/register",
         element: <Register />,
       },
+      {
+        path: "/orders",
+        element: (
+          <PrivateRoute>
+            <Orders />
+          </PrivateRoute>
+        ),
+      },
     ],
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 );
