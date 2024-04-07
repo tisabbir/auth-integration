@@ -1,4 +1,5 @@
 import {
+  GithubAuthProvider,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -13,6 +14,8 @@ export const AuthContext = createContext(null);
 
 const googleProvider = new GoogleAuthProvider();
 
+const gitHubProvider = new GithubAuthProvider();
+
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -21,6 +24,11 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     return signInWithPopup(auth, googleProvider);
   };
+
+  const singInWithGithub = () => {
+    setLoading(true);
+    return signInWithPopup(auth, gitHubProvider)
+  }
 
   const createUser = (email, password) => {
     setLoading(true);
@@ -56,6 +64,7 @@ const AuthProvider = ({ children }) => {
     signInUser,
     logOut,
     signInWithGoogle,
+    singInWithGithub,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

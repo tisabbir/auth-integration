@@ -1,9 +1,10 @@
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
+import useAuth from "../hooks/useAuth";
 
 const Login = () => {
-  const { signInUser, signInWithGoogle } = useContext(AuthContext);
+  const { signInUser, signInWithGoogle , singInWithGithub } = useAuth();
   const navigate = useNavigate();
 
   const handleGoogleSignIn = () => {
@@ -18,6 +19,23 @@ const Login = () => {
       });
     console.log("googled");
   };
+
+
+  const handleGithubSignIn = () => {
+    console.log('github')
+    singInWithGithub()
+    .then( res => {
+      console.log(res.user)
+    })
+    .catch(err => console.error(err))
+
+  }
+  
+  const handleFacebookSignIn = () => {
+    console.log('facebook')
+
+  }
+
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -77,10 +95,22 @@ const Login = () => {
               <button className="btn btn-primary">Login</button>
             </div>
           </form>
+          <div className="flex justify-between">
           <div>
             <button onClick={handleGoogleSignIn} className="btn btn-ghost ml-4">
               Google
             </button>
+          </div>
+          <div>
+            <button onClick={handleGithubSignIn} className="btn btn-ghost ml-4">
+              Github
+            </button>
+          </div>
+          <div>
+            <button onClick={handleFacebookSignIn} className="btn btn-ghost ml-4">
+              Facebook
+            </button>
+          </div>
           </div>
           <p className="text-center mb-4">
             New Here? Please{" "}
