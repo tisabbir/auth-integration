@@ -4,7 +4,7 @@ import { AuthContext } from "../Provider/AuthProvider";
 import useAuth from "../hooks/useAuth";
 
 const Login = () => {
-  const { signInUser, signInWithGoogle , singInWithGithub } = useAuth();
+  const { signInUser, signInWithGoogle , singInWithGithub, singInWithTwitter , signInWithFacebook } = useAuth();
   const navigate = useNavigate();
 
   const handleGoogleSignIn = () => {
@@ -20,6 +20,32 @@ const Login = () => {
     console.log("googled");
   };
 
+  const handleFacebookSignIn = () => {
+    signInWithFacebook()
+      .then((res) => {
+        console.log(res.user);
+
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+    console.log("googled");
+  };
+
+  const handleTwitterSignIn = () => {
+    singInWithTwitter()
+      .then((res) => {
+        console.log(res.user);
+
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+    console.log("twitted");
+  };
+
 
   const handleGithubSignIn = () => {
     console.log('github')
@@ -31,10 +57,7 @@ const Login = () => {
 
   }
   
-  const handleFacebookSignIn = () => {
-    console.log('facebook')
 
-  }
 
 
   const handleLogin = (e) => {
@@ -109,6 +132,11 @@ const Login = () => {
           <div>
             <button onClick={handleFacebookSignIn} className="btn btn-ghost ml-4">
               Facebook
+            </button>
+          </div>
+          <div>
+            <button onClick={handleTwitterSignIn} className="btn btn-ghost ml-4">
+              Twitter
             </button>
           </div>
           </div>

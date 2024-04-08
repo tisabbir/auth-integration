@@ -1,6 +1,8 @@
 import {
+  FacebookAuthProvider,
   GithubAuthProvider,
   GoogleAuthProvider,
+  TwitterAuthProvider,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
@@ -16,6 +18,9 @@ const googleProvider = new GoogleAuthProvider();
 
 const gitHubProvider = new GithubAuthProvider();
 
+const twitterProvider = new TwitterAuthProvider();
+const facebookProvider = new FacebookAuthProvider();
+
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -28,6 +33,14 @@ const AuthProvider = ({ children }) => {
   const singInWithGithub = () => {
     setLoading(true);
     return signInWithPopup(auth, gitHubProvider)
+  }
+  const singInWithTwitter = () => {
+    setLoading(true);
+    return signInWithPopup(auth, twitterProvider)
+  }
+  const signInWithFacebook = () => {
+    setLoading(true);
+    return signInWithPopup(auth, facebookProvider)
   }
 
   const createUser = (email, password) => {
@@ -65,6 +78,8 @@ const AuthProvider = ({ children }) => {
     logOut,
     signInWithGoogle,
     singInWithGithub,
+    singInWithTwitter,
+    signInWithFacebook
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
