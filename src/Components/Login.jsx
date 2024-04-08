@@ -1,18 +1,20 @@
 import { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import useAuth from "../hooks/useAuth";
 
 const Login = () => {
   const { signInUser, signInWithGoogle , singInWithGithub, singInWithTwitter , signInWithFacebook } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state || "/";
 
   const handleGoogleSignIn = () => {
     signInWithGoogle()
       .then((res) => {
         console.log(res.user);
 
-        navigate("/");
+        navigate(from);
       })
       .catch((err) => {
         console.log(err.message);
